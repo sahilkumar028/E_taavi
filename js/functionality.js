@@ -177,16 +177,40 @@ document.getElementById("last_menstrual_period").addEventListener("change", func
 document.getElementById("birth_weight").addEventListener("change", function() {
   let weight=document.getElementById("birth_weight");
   // Add kg
-  let length=(weight.value).length;
-  let data=weight.value;
+  let data=(weight.value);
+  data=data.trimRight();
+  let length=data.length;
   data=data.substr(length-2,length);
-  console.log(data);
-  if(data==="kg"){
-
+  if(data=="kg"){
+    weight.value=(weight.value).trimRight();
   } else {
-    weight.value = weight.value + " kg";
+    weight.value += " kg";
   }
   
+});
+
+document.addEventListener('keydown', function(event) {
+  if (event.key === "Enter") {
+      event.preventDefault(); // Prevent the default Enter key behavior
+      
+      // Find the currently focused element
+      var focusedElement = document.activeElement;
+
+      // Find all focusable elements in the document
+      var focusableElements = document.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+
+      // Find the index of the currently focused element in the list of focusable elements
+      var currentIndex = Array.prototype.indexOf.call(focusableElements, focusedElement);
+
+      // Calculate the index of the next focusable element
+      var nextIndex = currentIndex + 1;
+      if (nextIndex >= focusableElements.length) {
+          nextIndex = 0; // Wrap around to the first focusable element
+      }
+
+      // Focus the next focusable element
+      focusableElements[nextIndex].focus();
+  }
 });
 
 
